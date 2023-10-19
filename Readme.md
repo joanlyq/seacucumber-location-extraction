@@ -4,10 +4,6 @@ This code is used specifically to extract sea cucumber location data on Remotely
 
 ## Installation
 
-To run this code, you should follow these steps to set up the necessary environment:
-
-## Installation
-
 To run this code, you need to set up the necessary environment. Here's how to do it:
 
 1. **Install Miniconda (Optional)**
