@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "args": ["C:/Users/kejoy/geonadir/rov-timestamp-matching/gouldreef-rov-id.csv", "./rov_trackpts", "./gouldreef-output-test.csv"],
+            "args": ["./test/gouldreef-rov-id.csv", "./rov_trackpts", "./test/gouldreef-output-test.csv"],
             "justMyCode": true
         }
     ]
