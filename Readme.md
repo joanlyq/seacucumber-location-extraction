@@ -71,7 +71,7 @@ To execute the code, follow these steps:
    Example:
 
    ```bash
-   python main.py ./test/gouldreef-rov-id.csv ./rov_trackpts ./test/gouldreef-output-test.csv
+   python main.py ./test/gouldreef-rov-id.csv ./rov_trackpts ./test/gouldreef-testoutput.csv
    ```
 
 4. The code will process the data and generate the output CSV file with sea cucumber locations.
