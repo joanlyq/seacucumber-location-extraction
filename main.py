@@ -3,7 +3,25 @@ import geopandas as gpd
 import pandas as pd
 from shapely.geometry import Point
 import os
+from dateutil import parser
 
+
+def parse_datetime(date_string):
+        try:
+            return parser.parse(date_string)
+        except ValueError:
+            print(f"Unable to parse date: {date_string}")
+            return None
+        
+def parse_date(date_string):
+    try:
+        parsed_date = parser.parse(date_string)
+        return parsed_date.date()  # Extract the date part
+    except ValueError:
+        print(f"Unable to parse date: {date_string}")
+        return None
+
+        
 def main():
     parser = argparse.ArgumentParser(description="Match items in a CSV file with the closest timestamps in shapefiles and save the result to a new CSV file.")
     parser.add_argument("csv_file", help="Path to the CSV file with item data")
@@ -14,15 +32,16 @@ def main():
 
     # Load the CSV file with item data
     csv_df = pd.read_csv(args.csv_file)
-
+    
     # Extract the date part from the CSV timestamp
-    csv_df['date'] = csv_df['datetime'].str.split().str[0]
+    # csv_df['datetime'] = csv_df['datetime'].apply(parse_datetime)
+    csv_df['date'] = csv_df['datetime'].apply(parse_date)
     csv_df['datetime'] = pd.to_datetime(csv_df['datetime'])  # Replace 'datetime_field' with your datetime column name
     dates = csv_df['date'].unique()
     
     gdfs_shapefiles = gpd.GeoDataFrame()
     for date in dates:
-        date = date.replace("-","")
+        date = date.strftime("%Y%m%d")
         # List files in the folder
         file_list = os.listdir(args.shapefile_folder)
 
@@ -48,8 +67,8 @@ def main():
 
         # Find the feature with the smallest time difference
         closest_feature = gdfs_shapefiles.loc[gdfs_shapefiles['time_difference'].idxmin()]
-        closest_lats.append(closest_feature.geometry.y)
-        closest_lons.append(closest_feature.geometry.x)
+        closest_lats.append(closest_feature.Latitude)
+        closest_lons.append(closest_feature.Longitude)
         closest_timestamps.append(closest_feature['ltime'])  # Replace 'datetime_column_name' with your shapefile's datetime column
 
 
@@ -66,7 +85,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-
     print("\n\nDONE")
     print("\n\n\n\t /\_ /\    ♡\n\t(• - • ̳)\n\t |、ﾞ~ヽ\n\t じしf_; )ノ \n    © Joan Li, 2023")
 

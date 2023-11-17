@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "args": ["./test/gouldreef-rov-id.csv", "./rov_trackpts", "./test/gouldreef-output-test.csv"],
+            "args": ["./test/testhastings.csv", "./rov_trackpts", "./test/hastings-output-test-2.csv"],
             "justMyCode": true
         }
     ]
